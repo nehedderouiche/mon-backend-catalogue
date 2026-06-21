@@ -8,9 +8,9 @@ const app = express();
 app.use(cors()); 
 app.use(express.json({ limit: '20mb' })); 
 
-// --- CONNEXION BASE DE DONNÉES (CLOUD ATLAS) ---
-// Remplacez <db_password> par le mot de passe que vous avez copié dans MongoDB Atlas
-const dbURI = "mongodb+srv://nehedderouiche7_db_user:lOaCKuMZtU2XpZu1@cluster0.g8fsuyw.mongodb.net/CatalogueDB?retryWrites=true&w=majority&appName=Cluster0";
+// --- CONNEXION BASE DE DONNÉES ---
+// On utilise process.env pour ne pas exposer le mot de passe dans le code source
+const dbURI = process.env.MONGODB_URI;
 
 mongoose.connect(dbURI)
     .then(() => console.log("✅ Connecté avec succès à MongoDB Atlas"))
@@ -71,7 +71,7 @@ app.delete('/api/articles/delete/:id', async (req, res) => {
 });
 
 // --- DÉMARRAGE DU SERVEUR ---
-const PORT = process.env.PORT || 3000; // Important pour l'hébergement cloud
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 SERVEUR ACTIF SUR LE PORT ${PORT}`);
 });
