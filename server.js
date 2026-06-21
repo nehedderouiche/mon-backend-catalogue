@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json({ limit: '20mb' })); 
 
 // --- CONNEXION BASE DE DONNÉES ---
-// On utilise process.env pour ne pas exposer le mot de passe dans le code source
-const dbURI = process.env.MONGODB_URI;
+// Utilise la variable d'environnement sur Render, sinon utilise la chaîne de secours locale
+const dbURI = process.env.MONGODB_URI || "mongodb+srv://nehedderouiche52_db_user:azerty123@cluster0.g8fsuyw.mongodb.net/CatalogueDB?retryWrites=true&w=majority";
 
 mongoose.connect(dbURI)
     .then(() => console.log("✅ Connecté avec succès à MongoDB Atlas"))
